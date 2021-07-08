@@ -28,6 +28,18 @@ class Route extends Bootstrap{
         'action' => 'authenticateUser'
       );
 
+      $routes['timeline'] = array(
+        'route' => '/timeline',
+        'controller' => 'AppController',
+        'action' => 'handleTimeline'
+      );
+
+      $routes['logout'] = array(
+        'route' => '/logout',
+        'controller' => 'AuthController',
+        'action' => 'logout'
+      );
+
       
       $this->setRoutes($routes);
     }
