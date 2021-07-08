@@ -11,11 +11,20 @@
       $user->__set('password', $_POST['password']);
       $user->authenticateUser();
       if($user->__get('id') != '' && $user->__get('name')){
-        echo 'Authenticated';
+        session_start();
+        $_SESSION['id'] = $user->__get('id');
+        $_SESSION['name'] = $user->__get('name');
+        header('Location: /timeline');
       }else{
         echo 'Authentication Error';
         header('Location: /?login=error');
       }
+    }
+
+    public function logout(){
+      session_start();
+      session_destroy();
+      header('Location: /');
     }
   }
 ?>
