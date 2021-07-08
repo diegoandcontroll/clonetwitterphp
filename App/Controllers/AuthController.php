@@ -8,7 +8,7 @@
     public function authenticateUser(){
       $user = Container::getModel('User');
       $user->__set('email', $_POST['email']);
-      $user->__set('password', $_POST['password']);
+      $user->__set('password', md5($_POST['password']));
       $user->authenticateUser();
       if($user->__get('id') != '' && $user->__get('name')){
         session_start();
