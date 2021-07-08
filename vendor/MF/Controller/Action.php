@@ -3,6 +3,7 @@
   use stdClass;
 
 abstract class Action{
+    protected $authenticated;
     protected $view;
     public function __construct(){
       $this->view = new stdClass();
@@ -16,7 +17,14 @@ abstract class Action{
         $this->content();
       }
     }
-
+    public function verifySession($id, $name){
+      if($_SESSION[$id] != '' && $_SESSION[$name] != ''){
+        $this->authenticated = true;
+      }else{
+        $this->authenticated = false;
+      }
+      return $this->authenticated;
+    }
     protected function content(){
       $currentClass = get_class($this);
       $currentClass = str_replace('App\\Controllers\\', '', $currentClass);
