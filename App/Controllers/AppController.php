@@ -41,12 +41,32 @@
         if($followUs != ''){
           $user = Container::getModel('User');
           $user->__set('name', $followUs);
+          $user->__set('id', $_SESSION['id']);
           $users = $user->getAllUsers();
         }
+        $this->view->username = $_SESSION['name'];
         $this->view->users = $users;
         $this->render('follow');
       }else {
         header('Location: /?login=error');
+      }
+    }
+
+    public function action(){
+      session_start();
+      $isAuthenticated = $this->verifySession('id', 'name');
+      if($isAuthenticated){
+        $action = isset($_GET['action']) ? $_GET['action'] : '';
+        $user_following = isset($_GET['user_id']) ? $_GET['user_id']: '';
+
+        $user = Container::getModel('User');
+        $user->__set('id', $_SESSION['id']);
+
+        if($action == 'follow'){
+          $user->follow($user_following);
+        }else if($action == 'unfollow'){
+          $user->unfollow($user_following);
+        }
       }
     }
 
