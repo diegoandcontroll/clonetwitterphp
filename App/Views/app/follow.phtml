@@ -20,9 +20,16 @@
 		<div class="col-md-3">
 
 			<div class="perfil">
-				<div class="perfilTopo">
+				<div class="perfilTopo animate__animated animate__bounce">
+						<div class="row">
+							<div class="col">
+								<div class="d-flex justify-content-center align-center">
+									<img src="https://images.unsplash.com/photo-1622757315689-a4e88eff699b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" style="border-radius: 5rem; width: 80px; height: 80px; margin-top: .5rem;" class="">
+								</div>
+							</div>
 
-				</div>
+						</div>
+					</div>
 
 				<div class="perfilPainel">
 					
@@ -36,17 +43,17 @@
 
 						<div class="col">
 							<span class="perfilPainelItem">Tweets</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->totalTweets['total'] ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguindo</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->totalFollowing['total'] ?></span>
 						</div>
 
 						<div class="col">
 							<span class="perfilPainelItem">Seguidores</span><br />
-							<span class="perfilPainelItemValor">0</span>
+							<span class="perfilPainelItemValor"><?= $this->view->totalFollowers['total'] ?></span>
 						</div>
 
 					</div>
