@@ -11,6 +11,10 @@
         $tweet = Container::getModel('Tweet');
         $tweets = $tweet->getTweets($_SESSION['id']);
         $this->view->tweets = $tweets;
+        $user = Container::getModel('User');
+        $this->view->totalTweets = $user->getTotalTweets($_SESSION['id']);
+        $this->view->totalFollowing = $user->getTotalFollowing($_SESSION['id']);
+        $this->view->totalFollowers = $user->getTotalFollow($_SESSION['id']);
         $this->render('timeline');
       }else{
         header('Location: /?login=error');
@@ -38,14 +42,17 @@
       $users = array();
       if($isAuthenticated){
         $followUs = isset($_GET['followUs']) ? $_GET['followUs'] : '';
+        $user = Container::getModel('User');
         if($followUs != ''){
-          $user = Container::getModel('User');
           $user->__set('name', $followUs);
           $user->__set('id', $_SESSION['id']);
           $users = $user->getAllUsers();
         }
         $this->view->username = $_SESSION['name'];
         $this->view->users = $users;
+        $this->view->totalTweets = $user->getTotalTweets($_SESSION['id']);
+        $this->view->totalFollowing = $user->getTotalFollowing($_SESSION['id']);
+        $this->view->totalFollowers = $user->getTotalFollow($_SESSION['id']);
         $this->render('follow');
       }else {
         header('Location: /?login=error');
