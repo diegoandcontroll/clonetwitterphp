@@ -64,7 +64,25 @@
       }
       return $this;
     }
+    public function getTotalTweets($id){
+      $query = 'SELECT COUNT(*) as total from tweets WHERE id_usuario = '.$id;
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+      return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 
+    public function getTotalFollowing($id){
+      $query = 'SELECT COUNT(*) as total from usuarios_seguidores WHERE id_usuario = '.$id;
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+      return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+    public function getTotalFollow($id){
+      $query = 'SELECT COUNT(*) as total from usuarios_seguidores WHERE id_usuario_seguindo = '.$id;
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+      return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
     public function getAllUsers(){
       $query = '
       select 
