@@ -66,11 +66,46 @@
     }
 
     public function getAllUsers(){
-      $query = 'select id, nome, email from usuarios where nome like :name';
+      $query = '
+      select 
+        u.id, u.nome, u.email, (select count(*) from usuarios_seguidores as us where us.id_usuario = :idUser and us.id_usuario_seguindo = u.id) as isFollowing
+        from usuarios as u where 
+        u.nome like :name and u.id != :idUser';
       $stmt = $this->db->prepare($query);
       $stmt->bindValue(':name', '%'.$this->__get('name').'%');
+      $stmt->bindValue(':idUser', $this->__get('id'));
       $stmt->execute();
       return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function follow($id_userfollowing){
+      $query = '
+      insert into 
+        usuarios_seguidores (id_usuario, id_usuario_seguindo)
+      values (:id_user, :id_userfollowing)
+      ';
+      $stmt = $this->db->prepare($query);
+      $stmt->bindValue(':id_user', $this->__get('id'));
+      $stmt->bindValue(':id_userfollowing', $id_userfollowing);
+      $stmt->execute();
+      header('Location: /follow');
+      return true;
+      
+
+    }
+
+    public function unfollow($id_userfollowing){
+      $query = '
+      delete from 
+        usuarios_seguidores where id_usuario = :id_user and id_usuario_seguindo = :id_userfollowing
+      ';
+      $stmt = $this->db->prepare($query);
+      $stmt->bindValue(':id_user', $this->__get('id'));
+      $stmt->bindValue(':id_userfollowing', $id_userfollowing);
+      $stmt->execute();
+      header('Location: /follow');
+      return true;
+      
     }
   }
 ?>
