@@ -33,10 +33,18 @@
       from 
         tweets as t
         left join usuarios as u on(t.id_usuario = u.id)
-      where id_usuario = ".$id_user." order by t.data desc";
+      where t.id_usuario = ".$id_user."
+      or t.id_usuario in (select id_usuario_seguindo from usuarios_seguidores where id_usuario = ". $id_user.") order by t.data desc";
       $stmt = $this->db->prepare($query);
       $stmt->execute();
       return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteTweetUser($id,$idTweet){
+      $query = "delete from tweets where id_usuario = ".$id." and id = ".$idTweet;
+      $stmt = $this->db->prepare($query);
+      $stmt->execute();
+      return $this;
     }
   }
 ?>
