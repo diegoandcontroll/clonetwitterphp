@@ -46,6 +46,12 @@ class Route extends Bootstrap{
         'action' => 'tweet'
       );
 
+      $routes['follow'] = array(
+        'route' => '/follow',
+        'controller' => 'AppController',
+        'action' => 'follow'
+      );
+
       
       $this->setRoutes($routes);
     }
