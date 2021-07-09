@@ -32,6 +32,24 @@
       
     }
 
+    public function follow(){
+      session_start();
+      $isAuthenticated = $this->verifySession('id', 'name');
+      $users = array();
+      if($isAuthenticated){
+        $followUs = isset($_GET['followUs']) ? $_GET['followUs'] : '';
+        if($followUs != ''){
+          $user = Container::getModel('User');
+          $user->__set('name', $followUs);
+          $users = $user->getAllUsers();
+        }
+        $this->view->users = $users;
+        $this->render('follow');
+      }else {
+        header('Location: /?login=error');
+      }
+    }
+
     
   }
 ?>
