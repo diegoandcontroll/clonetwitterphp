@@ -19,8 +19,15 @@
 		<div class="col-md-3">
 
 			<div class="perfil">
-				<div class="perfilTopo">
+				<div class="perfilTopo animate__animated animate__bounce">
+					<div class="row">
+						<div class="col">
+							<div class="d-flex justify-content-center align-center">
+								<img src="https://images.unsplash.com/photo-1622757315689-a4e88eff699b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" style="border-radius: 5rem; width: 80px; height: 80px; margin-top: .5rem;" class="">
+							</div>
+						</div>
 
+					</div>
 				</div>
 
 				<div class="perfilPainel">
@@ -77,11 +84,15 @@
 					<p><?= $tweet['tweet']?></p>
 
 					<br />
-					<form>
-						<div class="col d-flex justify-content-end">
-							<button type="submit" class="btn btn-danger"><small>Remover</small></button>
-						</div>
-					</form>		
+					<?php if($tweet['id_usuario'] == $_SESSION['id']) {?>
+						<form action="/delete" method="POST">
+							<div class="col d-flex justify-content-end">
+								<button type="submit" class="btn btn-danger"><small>Remover</small></button>
+								<input type="hidden" name="id_user" value="<?= $_SESSION['id'] ?>">
+								<input type="hidden" name="id_tweet" value="<?= $tweet['id'] ?>">
+							</div>
+						</form>	
+					<?php }?>	
 				</div>
 			</div>
 			<?php } ?>
