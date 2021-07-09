@@ -70,6 +70,16 @@
       }
     }
 
+    public function deleteTweet(){
+      session_start();
+      $isAuthenticated = $this->verifySession('id', 'name');
+      if($isAuthenticated){
+        $tweet = Container::getModel('Tweet');
+        $tweet->deleteTweetUser($_POST['id_user'],$_POST['id_tweet']);
+        header('Location: /timeline');
+      }
+    }
+
     
   }
 ?>
