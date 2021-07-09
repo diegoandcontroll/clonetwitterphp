@@ -64,5 +64,13 @@
       }
       return $this;
     }
+
+    public function getAllUsers(){
+      $query = 'select id, nome, email from usuarios where nome like :name';
+      $stmt = $this->db->prepare($query);
+      $stmt->bindValue(':name', '%'.$this->__get('name').'%');
+      $stmt->execute();
+      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
   }
 ?>
