@@ -57,7 +57,12 @@ class Route extends Bootstrap{
         'controller' => 'AppController',
         'action' => 'action'
       );
-
+      $routes['deletetweet'] = array(
+        'route' => '/delete',
+        'controller' => 'AppController',
+        'action' => 'deleteTweet'
+      );
+      
       
       $this->setRoutes($routes);
     }
